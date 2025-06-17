@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>美发设计个人网站 | Hair Stylist Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* 全局样式 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans TC', sans-serif, Arial;
+    }
+    body {
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* 导航栏 */
+    nav {
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #d46a6a;
+    }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-links a:hover {
+      color: #d46a6a;
+    }
+    /* 首页 Banner */
+    .banner {
+      background: url('https://images.unsplash.com/photo-1522335789203-a95e4fbe9cbb') center/cover;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+      position: relative;
+    }
+    .banner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.4);
+    }
+    .banner-content {
+      z-index: 1;
+      max-width: 600px;
+      padding: 20px;
+    }
+    .banner h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    .banner p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: inline-block;
+      background: #d46a6a;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #b85a5a;
+    }
+    /* 服务区块 */
+    .services {
+      padding: 80px 0;
+      text-align: center;
+    }
+    .services h2 {
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      color: #d46a6a;
+    }
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .service-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-10px);
+    }
+    .service-card i {
+      font-size: 2.5rem;
+      color: #d46a6a;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      margin-bottom: 15px;
+    }
+    /* 作品集 */
+    .portfolio {
+      padding: 80px 0;
+      background: #f0f0f0;
+    }
+    .portfolio h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      color: #d46a6a;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .portfolio-item img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .portfolio-item:hover img {
+      transform: scale(1.05);
+    }
+    .portfolio-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 20px;
+      transform: translateY(100%);
+      transition: transform 0.3s;
+    }
+    .portfolio-item:hover .portfolio-overlay {
+      transform: translateY(0);
+    }
+    /* 关于我 */
+    .about {
+      padding: 80px 0;
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+    .about-img {
+      flex: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .about-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .about-content {
+      flex: 1;
+    }
+    .about-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #d46a6a;
+    }
+    /* 服务与价格 */
+    .pricing {
+      padding: 80px 0;
+      background: #f0f0f0;
+    }
+    .pricing h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      color: #d46a6a;
+    }
+    .price-table {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      overflow: hidden;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .price-row {
+      display: flex;
+      border-bottom: 1px solid #eee;
+    }
+    .price-row:last-child {
+      border-bottom: none;
+    }
+    .price-row div {
+      padding: 20px;
+      flex: 1;
+    }
+    .price-row div:first-child {
+      font-weight: bold;
+    }
+    .price-row div:last-child {
+      text-align: right;
+      color: #d46a6a;
+      font-weight: bold;
+    }
+    /* 联络我 */
+    .contact {
+      padding: 80px 0;
+    }
+    .contact h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      color: #d46a6a;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+    .contact-form {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .contact-form h3 {
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .form-group textarea {
+      height: 100px;
+    }
+    .contact-info {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .contact-info h3 {
+      margin-bottom: 20px;
+    }
+    .contact-info p {
+      margin-bottom: 15px;
+    }
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .social-links a {
+      color: #d46a6a;
+      font-size: 1.5rem;
+    }
+    /* 页脚 */
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 50px;
+    }
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .about {
+        flex-direction: column;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav>
+    <div class="container">
+      <div class="logo">美发设计 | Hair Stylist</div>
+      <div class="nav-links">
+        <a href="#home">首页 | Home</a>
+        <a href="#portfolio">作品集 | Portfolio</a>
+        <a href="#about">关于我 | About</a>
+        <a href="#pricing">服务与价格 | Services & Pricing</a>
+        <a href="#contact">联络我 | Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 首页 Banner -->
+  <section class="banner" id="home">
+    <div class="banner-content">
+      <h1>专业美发设计 | Professional Hair Stylist</h1>
+      <p>为您打造独特发型，展现自信魅力<br>Create unique hairstyles to show your confidence</p>
+      <a href="#contact" class="btn">预约 | Book Now</a>
+    </div>
+  </section>
+
+  <!-- 服务区块 -->
+  <section class="services">
+    <div class="container">
+      <h2>主要服务 | Services</h2>
+      <div class="service-grid">
+        <div class="service-card">
+          <i class="fas fa-cut"></i>
+          <h3>剪发 | Haircut</h3>
+          <p>专业剪发，打造个性造型<br>Professional haircut for unique style</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-paint-brush"></i>
+          <h3>染发 | Hair Color</h3>
+          <p>时尚染发，引领潮流<br>Trendy hair color to lead the fashion</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-magic"></i>
+          <h3>造型 | Styling</h3>
+          <p>完美造型，出席任何场合<br>Perfect styling for any occasion</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-spa"></i>
+          <h3>护理 | Hair Care</h3>
+          <p>专业护理，呵护秀发<br>Professional hair care for healthy hair</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 作品集 -->
+  <section class="portfolio" id="portfolio">
+    <div class="container">
+      <h2>作品集 | Portfolio</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e" alt="Hair Style 1">
+          <div class="portfolio-overlay">
+            <h3>短发造型 | Short Hair</h3>
+            <p>时尚利落，展现个性<br>Trendy and neat, show your personality</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e" alt="Hair Style 2">
+          <div class="portfolio-overlay">
+            <h3>长发染发 | Long Hair Color</h3>
+            <p>色彩丰富，突显气质<br>Rich color to highlight your temperament</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f" alt="Hair Style 3">
+          <div class="portfolio-overlay">
+            <h3>卷发造型 | Curly Hair</h3>
+            <p>自然卷曲，增添魅力<br>Natural curls to add charm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于我 -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2" alt="About Me">
+      </div>
+      <div class="about-content">
+        <h2>关于我 | About Me</h2>
+        <p>我是专业美发设计师，拥有十年以上经验，擅长各种发型设计与染发技术。我致力于为每位客户打造独一无二的发型，让您展现自信与魅力。<br>I am a professional hair stylist with over 10 years of experience, specializing in various hairstyles and coloring techniques. I am committed to creating unique hairstyles for every client to help you show your confidence and charm.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 服务与价格 -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <h2>服务与价格 | Services & Pricing</h2>
+      <div class="price-table">
+        <div class="price-row">
+          <div>剪发 | Haircut</div>
+          <div>NT$800</div>
+        </div>
+        <div class="price-row">
+          <div>染发 | Hair Color</div>
+          <div>NT$1500</div>
+        </div>
+        <div class="price-row">
+          <div>造型 | Styling</div>
+          <div>NT$500</div>
+        </div>
+        <div class="price-row">
+          <div>护理 | Hair Care</div>
+          <div>NT$600</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联络我 -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>联络我 | Contact</h2>
+      <div class="contact-grid">
+        <div class="contact-form">
+          <h3>留言 | Send Message</h3>
+          <form>
+            <div class="form-group">
+              <label for="name">姓名 | Name</label>
+              <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">电话 | Phone</label>
+              <input type="tel" id="phone" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+              <label for="message">留言 | Message</label>
+              <textarea id="message" required></textarea>
+            </div>
+            <button type="submit" class="btn">送出 | Submit</button>
+          </form>
+        </div>
+        <div class="contact-info">
+          <h3>联络信息 | Contact Info</h3>
+          <p><i class="fas fa-map-marker-alt"></i> 台中市文雅里XX路XX号<br>No.XX, XX Rd, Wunya Li, Taichung City</p>
+          <p><i class="fas fa-phone"></i> 0912-345-678</p>
+          <p><i class="fas fa-envelope"></i> info@example.com</p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/liumina__1027/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 美发设计 | Hair Stylist Portfolio. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // 表单提交示例
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('感谢您的留言，我们会尽快与您联系！\nThank you for your message, we will contact you soon!');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
